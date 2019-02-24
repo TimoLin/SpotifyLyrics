@@ -14,11 +14,7 @@ client_id = config['client']['client_id']
 client_secret = config['client']['client_secret']
 scope = config['oauth']['scope']
 redirect_uri = config['oauth']['redirect_uri']
-print(name)
-print(client_id)
-print(client_secret)
-print(scope)
-print(redirect_uri)
+
 token = util.prompt_for_user_token(
         username=name,
         scope=scope,
