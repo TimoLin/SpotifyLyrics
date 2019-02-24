@@ -3,11 +3,14 @@ SpotifyLyrics
 This is a python script to show synced lyrics of your current playing song in Spotify at terminal.  
 
 ## Features  
-
 - Show synced lyrics line by line
 - No matter what device Spotify are connecting 
 
+## Demo  
+![Demo](https://i.imgur.com/j1A5h8a.gif)
+
 ## requirements
+### python
 This repo requires `python3`. 
 Related pip packages: `spotipy` `beautifulsoup4` `requests` `xmltodict` `psutil` `unidecode`.  
 ```shell
@@ -16,6 +19,21 @@ pip3 install spotipy beautifulsoup4 requests xmltodict psutil unidecode
 For spotipy, the pip package is out of date. Install it through github:  
 ```shell
 pip3 install git+https://github.com/plamere/spotipy.git --upgrade
+```
+### Spotify  
+This feature need Spotify `authorization_code` to get your current playback status. The scope is `user-read-playback-state`. Detailed information about this can be found at [Spotify for Developer](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow).  
+1. Create an application at [Developer Dashboard](https://developer.spotify.com/dashboard/applications).  
+2. Put the `Client ID` and `Client Secret` of the app to `config.ini`.
+  - For example:
+```ini
+[client]
+name = taytay
+client_id= 1234567890123456789
+client_secret = abcdefghijklmnopqrst
+
+[oauth]
+scope = user-read-playback-state
+redirect_uri = http://localhost/callback/
 ```
 
 ## How to use?  
