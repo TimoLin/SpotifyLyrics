@@ -1,0 +1,6 @@
+# vim swp
+*.swp
+# ipython
+__pycache__/
+# spotipy token cache
+.cache*
