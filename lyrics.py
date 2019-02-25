@@ -1,4 +1,7 @@
 '''
+    * This file is copied from fr31's project
+    * Link: https://github.com/fr31/spotifylyrics
+
     * You'll need to download xmltodict and BeautifulSoup
     * Easiest method to do so: "(sudo) pip install pycurl xmltodict BeautifulSoup json"
     * ViewLyrics Open Searcher

@@ -1,3 +1,7 @@
+'''
+    * This file is copied from fr31's project
+    * Link: https://github.com/fr31/spotifylyrics
+'''
 from bs4 import BeautifulSoup
 import requests
 import urllib
