@@ -21,7 +21,7 @@ For spotipy, the pip package is out of date. Install it through github:
 pip3 install git+https://github.com/plamere/spotipy.git --upgrade
 ```
 ### Spotify  
-This feature need Spotify `authorization_code` to get your current playback status. The scope is `user-read-playback-state`. Detailed information about this can be found at [Spotify for Developer](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow).  
+This feature needs Spotify `authorization_code` to get your current playback status. The scope is `user-read-playback-state`. Detailed information about this can be found at [Spotify for Developer](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow).  
 1. Create an application at [Developer Dashboard](https://developer.spotify.com/dashboard/applications).  
 2. Put the `Client ID` and `Client Secret` of the app to `config.ini`.
   - For example:
@@ -50,9 +50,10 @@ python3 SpotifyLyrics.py
 > Thanks to fr31, the lyrics.py and services.py are copied from this project  
 
 - [spotipy](https://github.com/plamere/spotipy)
-> A light weight Python library for the Spotify Web API. [spotipy doc](http://spotipy.readthedocs.org/)
+> A light weight Python library for the Spotify Web API. [Docs of spotipy](http://spotipy.readthedocs.org/)
 
 ## Todo list
 - [ ] Add more lyrics search api like `Neatease`, `Xiami`
 - [ ] Re-consider synced lyrics implementation to improve performence
 - [ ] Save lyrics to local drive and first check local lyrics
+- [ ] Exception handling
