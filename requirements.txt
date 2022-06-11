@@ -1,0 +1,8 @@
+spotipy
+lrc_kit
+beautifulsoup4
+requests
+xmltodict
+psutil
+unidecode
+

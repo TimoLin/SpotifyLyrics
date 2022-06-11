@@ -5,6 +5,7 @@ import spotipy
 import spotipy.util as util
 import services as s
 import configparser
+import lrc_kit
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -22,11 +23,15 @@ token = util.prompt_for_user_token(
         client_secret=client_secret,
         redirect_uri=redirect_uri)
 
+lyricsProvider = [lrc_kit.QQProvider]
+
 is_daemon = True
 lag_time = 1.0 # s
 
 if token:
     sp = spotipy.Spotify(auth=token)
+
+    PROVIDER = lrc_kit.ComboLyricsProvider(lyricsProvider)
 
     result = sp.current_playback()
 
@@ -52,11 +57,17 @@ if token:
         artist = artist.replace('’','\'')
 
         # get lyrics with timestamps from MiniLyrics
-        lyrics, url, service_name, timed = s._minilyrics(artist, song)
-        # error message in lyrics if can't get lyrics
-        error = "Error: Could not find lyrics."
+        #lyrics, url, service_name, timed = s._minilyrics(artist, song)
+        print(artist,song)
+        search_request = lrc_kit.SearchRequest(artist, song)
+        sub = PROVIDER.search(search_request)
 
-        if lyrics != error:
+        lyrics = str(sub)
+        timeline = []
+
+        #print(lyrics)
+
+        if(lyrics != 'None'):
             timeline, lrc = s.lyricSplit(lyrics)
 
         while (is_daemon):
@@ -72,11 +83,17 @@ if token:
                 if (is_daemon == False):
                     # turn off lyrics
                     break
-                if lyrics == error:
+                if (lyrics == "None"):
                     # only show the error message
                     current_line = " >: Don't have lyrics right now :< "
                     print('\033[4;0H\033[K\t \033[1;36m {}\033[0m'.format(current_line))
-                    sleep_time=30.0
+                    sleep_time=60.0
+                    time.sleep(sleep_time)
+                    break
+                elif (timeline == []):
+                    current_line = " >: The Lyrics is not synced :< "
+                    print('\033[4;0H\033[K\t \033[1;36m {}\033[0m'.format(current_line))
+                    sleep_time=60.0
                     time.sleep(sleep_time)
                     break
                 else:
@@ -94,8 +111,8 @@ if token:
                     else:
                         current_line = " >: Paused :<"
                         print('\033[4;0H\033[K\t \033[1;36m {}\033[0m'.format(current_line))
-                        # if paused, request api every 2.0s to update status
-                        sleep_time=60.0
+                        # if paused, request api every 10.0s to update status
+                        sleep_time=10.0
                         time.sleep(sleep_time)
 
                 # update playback status
@@ -113,8 +130,13 @@ if token:
                             # refresh screen
                             print('\033[2J\033[2;0H\t♫ \033[1;35m {0} \033[0m - \033[1;32m {1} \033[0m'.format(artist,song))
 
-                            lyrics, url, service_name, timed = s._minilyrics(artist,song)
-                            if lyrics != error:
+                            #lyrics, url, service_name, timed = s._minilyrics(artist,song)
+                            search_request = lrc_kit.SearchRequest(artist, song)
+                            sub = PROVIDER.search(search_request)
+
+                            lyrics = str(sub)
+
+                            if (lyrics != "None"):
                                 timeline, lrc = s.lyricSplit(lyrics)
                             song_id = _song_id
                     else:
